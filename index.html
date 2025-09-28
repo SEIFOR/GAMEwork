@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>گیم ریزه | دنیای مینی‌گیم‌های جذاب</title>
+    <title>گیم ریزه | دنیای حرفه‌ای مینی‌گیم‌ها</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* متغیرهای رنگ */
         :root {
             --primary: #6c5ce7;
             --secondary: #a29bfe;
@@ -16,9 +15,10 @@
             --success: #00b894;
             --warning: #fdcb6e;
             --danger: #e17055;
+            --neon: #00fff2;
+            --matrix: #00ff41;
         }
 
-        /* ریست استایل‌ها */
         * {
             margin: 0;
             padding: 0;
@@ -27,29 +27,30 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            background: radial-gradient(circle at center, #0f1b2f, #0a1120);
             color: var(--light);
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* استایل‌های هدر */
+        /* هدر پیشرفته */
         header {
-            background: rgba(26, 26, 46, 0.8);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(15, 23, 42, 0.95));
+            backdrop-filter: blur(20px);
             padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(108, 92, 231, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .header-scrolled {
             padding: 0.7rem 2rem;
-            background: rgba(26, 26, 46, 0.95);
+            background: rgba(15, 23, 42, 0.98);
         }
 
         .navbar {
@@ -61,53 +62,78 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--light);
+            gap: 15px;
+            font-size: 2rem;
+            font-weight: 800;
+            color: transparent;
+            background: linear-gradient(45deg, var(--accent), var(--neon), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
             text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, var(--accent), var(--neon), var(--primary));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
         }
 
         .logo i {
-            color: var(--accent);
-            animation: pulse 2s infinite;
+            animation: hologram 3s infinite alternate;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
         }
 
         .nav-links a {
             color: var(--light);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border-radius: 25px;
         }
 
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--neon);
+            background: rgba(108, 92, 231, 0.1);
+            box-shadow: 0 0 15px rgba(108, 92, 231, 0.3);
         }
 
-        .nav-links a::after {
+        .nav-links a::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-radius: 25px;
+            transition: all 0.3s ease;
         }
 
-        /* استایل‌های هیرو */
+        .nav-links a:hover::before {
+            border: 2px solid var(--neon);
+            box-shadow: 0 0 20px var(--neon);
+        }
+
+        /* بخش هیرو */
         .hero {
             height: 100vh;
             display: flex;
@@ -127,127 +153,268 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 30% 30%, rgba(108, 92, 231, 0.2), transparent 50%),
-                        radial-gradient(circle at 70% 70%, rgba(253, 121, 168, 0.15), transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(108, 92, 231, 0.3), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(253, 121, 168, 0.25), transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(0, 255, 242, 0.2), transparent 40%);
             z-index: -1;
+            animation: pulseBackground 8s infinite alternate;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--accent), var(--secondary));
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--accent), var(--neon), var(--primary), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: fadeInUp 1s ease;
+            animation: textGlow 3s infinite alternate;
+            text-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+            position: relative;
+        }
+
+        .hero h1::after {
+            content: 'GAME RIZE';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: hologram 4s infinite;
+            z-index: -1;
         }
 
         .hero p {
-            font-size: 1.5rem;
-            max-width: 700px;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease 0.2s both;
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 2rem;
+            animation: fadeInUp 1s ease 0.8s both;
         }
 
         .cta-button {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             border: none;
             border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
-            animation: fadeInUp 1s ease 0.4s both;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.6);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.6);
         }
 
-        /* استایل‌های بخش گیم‌ها */
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid var(--neon);
+            color: var(--neon);
+            box-shadow: 0 0 20px rgba(0, 255, 242, 0.3);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(0, 255, 242, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.5);
+        }
+
+        /* بخش گیم‌ها */
         .games-section {
-            padding: 5rem 2rem;
-            max-width: 1400px;
+            padding: 8rem 2rem;
+            max-width: 1600px;
             margin: 0 auto;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: 3.5rem;
+            margin-bottom: 5rem;
             position: relative;
+            color: transparent;
+            background: linear-gradient(45deg, var(--neon), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
         }
 
-        .section-title::after {
+        .section-title::before {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             right: 50%;
             transform: translateX(50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
+            width: 200px;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--neon), transparent);
+            border-radius: 3px;
+            box-shadow: 0 0 20px var(--neon);
         }
 
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
         }
 
         .game-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), transparent 30%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
         }
 
         .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 
+                0 25px 50px rgba(108, 92, 231, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .game-image {
-            height: 200px;
+            height: 250px;
             overflow: hidden;
             position: relative;
+        }
+
+        .game-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(transparent, rgba(15, 23, 42, 0.9));
         }
 
         .game-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .game-card:hover .game-image img {
-            transform: scale(1.1);
+            transform: scale(1.15);
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, var(--accent), var(--danger));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4);
+            z-index: 2;
         }
 
         .game-content {
-            padding: 1.5rem;
+            padding: 2rem;
+            position: relative;
         }
 
         .game-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .game-title i {
+            color: var(--neon);
+            font-size: 1.5rem;
         }
 
         .game-description {
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .game-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-tag {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(108, 92, 231, 0.3);
         }
 
         .game-meta {
@@ -258,24 +425,92 @@
 
         .game-rating {
             color: var(--warning);
+            font-size: 1.1rem;
         }
 
         .play-button {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
             cursor: pointer;
-            transition: background 0.3s ease;
-            font-weight: 500;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
         }
 
         .play-button:hover {
-            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
         }
 
-        /* استایل‌های گیم‌ها */
+        /* پاپ‌آپ */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(15, 23, 42, 0.95));
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 0 50px rgba(108, 92, 231, 0.5);
+            border: 2px solid var(--neon);
+            position: relative;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .popup-close:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--danger);
+        }
+
+        .popup h2 {
+            color: var(--neon);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--neon);
+        }
+
+        .popup p {
+            color: var(--light);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* بازی پونگ پیشرفته */
         .game-container {
             display: none;
             position: fixed;
@@ -283,7 +518,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -291,257 +526,182 @@
         }
 
         .game-area {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(15, 23, 42, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 0 50px rgba(108, 92, 231, 0.5);
+            border: 2px solid var(--neon);
             position: relative;
         }
 
         .close-game {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 15px;
+            left: 15px;
             background: var(--danger);
             color: white;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1rem;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-game:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--danger);
+        }
+
+        #pongGame {
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(circle at center, #0a1120, #000);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--neon);
+            box-shadow: 0 0 30px var(--neon);
+            border-radius: 10px;
+        }
+
+        .paddle {
+            width: 20px;
+            height: 120px;
+            position: absolute;
+            border-radius: 10px;
+            box-shadow: 0 0 20px currentColor;
+            transition: transform 0.1s ease;
+        }
+
+        #leftPaddle {
+            left: 30px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--accent);
+        }
+
+        #rightPaddle {
+            right: 30px;
+            background: linear-gradient(45deg, var(--success), var(--neon));
+            color: var(--neon);
+        }
+
+        .ball {
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle at 30% 30%, var(--warning), var(--danger));
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 25px var(--warning);
+            transition: transform 0.1s ease;
+        }
+
+        .score {
+            position: absolute;
+            top: 30px;
+            font-size: 4rem;
+            font-weight: 800;
+            text-shadow: 0 0 20px currentColor;
+            color: var(--neon);
+        }
+
+        #leftScore {
+            left: 45%;
+            transform: translateX(-50%);
+        }
+
+        #rightScore {
+            right: 45%;
+            transform: translateX(50%);
+        }
+
+        .center-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, var(--neon) 50%, transparent 100%);
+            box-shadow: 0 0 15px var(--neon);
+        }
+
+        .game-title-bar {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--neon);
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px var(--neon);
         }
 
         .game-controls {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
+            margin-top: 1rem;
             color: var(--light);
-            font-size: 0.9rem;
+            font-size: 1rem;
+            padding: 0 1rem;
         }
 
-        /* استایل‌های پونگ */
-        #pongGame {
-            width: 600px;
-            height: 400px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--primary);
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .paddle {
-            width: 15px;
-            height: 80px;
-            background: var(--accent);
-            position: absolute;
+        .control-key {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            border: 1px solid var(--neon);
+            box-shadow: 0 0 10px var(--neon);
         }
 
-        #leftPaddle {
-            left: 10px;
+        /* انیمیشن‌های پیشرفته */
+        @keyframes hologram {
+            0%, 100% {
+                opacity: 1;
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+                filter: hue-rotate(90deg);
+            }
         }
 
-        #rightPaddle {
-            right: 10px;
+        @keyframes pulseBackground {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
         }
 
-        .ball {
-            width: 15px;
-            height: 15px;
-            background: var(--light);
-            border-radius: 50%;
-            position: absolute;
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(108, 92, 231, 0.5),
+                             0 0 40px rgba(108, 92, 231, 0.3),
+                             0 0 60px rgba(108, 92, 231, 0.1);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(108, 92, 231, 0.8),
+                             0 0 60px rgba(108, 92, 231, 0.5),
+                             0 0 80px rgba(108, 92, 231, 0.3);
+            }
         }
 
-        .score {
-            position: absolute;
-            top: 20px;
-            font-size: 2rem;
-            color: white;
-        }
-
-        #leftScore {
-            left: 40%;
-        }
-
-        #rightScore {
-            right: 40%;
-        }
-
-        /* استایل‌های مار */
-        #snakeGame {
-            width: 400px;
-            height: 400px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--success);
-        }
-
-        .snake-segment {
-            width: 20px;
-            height: 20px;
-            background: var(--success);
-            position: absolute;
-        }
-
-        .snake-food {
-            width: 20px;
-            height: 20px;
-            background: var(--danger);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        /* استایل‌های شوتر */
-        #shooterGame {
-            width: 600px;
-            height: 400px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--warning);
-        }
-
-        .player {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            position: absolute;
-            bottom: 10px;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-
-        .enemy {
-            width: 30px;
-            height: 30px;
-            background: var(--danger);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .bullet {
-            width: 5px;
-            height: 15px;
-            background: var(--warning);
-            position: absolute;
-        }
-
-        /* استایل‌های پک-من */
-        #pacmanGame {
-            width: 400px;
-            height: 400px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--warning);
-        }
-
-        .pacman {
-            width: 20px;
-            height: 20px;
-            background: var(--warning);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--light);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .ghost {
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .ghost::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            top: 5px;
-            left: 3px;
-        }
-
-        .ghost::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            top: 5px;
-            right: 3px;
-        }
-
-        /* استایل‌های تتریس */
-        #tetrisGame {
-            width: 300px;
-            height: 600px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--secondary);
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            grid-template-rows: repeat(20, 1fr);
-        }
-
-        .tetris-block {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* استایل‌های پازل */
-        #puzzleGame {
-            width: 400px;
-            height: 400px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--accent);
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 2px;
-        }
-
-        .puzzle-piece {
-            background-size: 400px 400px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .puzzle-piece:hover {
-            transform: scale(1.05);
-        }
-
-        /* استایل‌های فوتر */
-        footer {
-            background: rgba(15, 23, 42, 0.9);
-            padding: 1.5rem 2rem;
-            text-align: center;
-        }
-
-        .copyright {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* انیمیشن‌ها */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -549,23 +709,36 @@
             }
         }
 
-        @keyframes pulse {
+        @keyframes ballTrail {
             0% {
-                transform: scale(1);
+                opacity: 0;
+                transform: scale(0.5);
             }
             50% {
-                transform: scale(1.1);
+                opacity: 0.7;
             }
             100% {
-                transform: scale(1);
+                opacity: 0;
+                transform: scale(1.5);
             }
         }
 
         /* استایل‌های ریسپانسیو */
+        @media (max-width: 1200px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+            
+            #pongGame {
+                width: 90vw;
+                height: 60vh;
+            }
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
             }
             
             .nav-links {
@@ -573,54 +746,55 @@
             }
             
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .hero p {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
+            }
+            
+            .cta-container {
+                flex-direction: column;
+                align-items: center;
             }
             
             .games-grid {
                 grid-template-columns: 1fr;
             }
             
-            #pongGame, #shooterGame {
-                width: 95vw;
-                height: 60vh;
+            .section-title {
+                font-size: 2.5rem;
             }
             
-            #snakeGame, #pacmanGame, #puzzleGame {
-                width: 95vw;
-                height: 95vw;
-            }
-            
-            #tetrisGame {
-                width: 95vw;
-                height: 120vw;
+            .game-controls {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
 
-        /* استایل‌های اسکرول بار */
+        /* اسکرول بار سفارشی */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            border: 2px solid rgba(15, 23, 42, 0.8);
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
+            background: linear-gradient(45deg, var(--accent), var(--primary));
         }
     </style>
 </head>
 <body>
-    <!-- هدر سایت -->
+    <!-- هدر پیشرفته -->
     <header id="header">
         <nav class="navbar">
             <a href="#" class="logo">
@@ -630,29 +804,56 @@
             <ul class="nav-links">
                 <li><a href="#home">خانه</a></li>
                 <li><a href="#games">بازی‌ها</a></li>
+                <li><a href="#leaderboard">رده‌بندی</a></li>
+                <li><a href="#profile">پروفایل</a></li>
+                <li><a href="#about">درباره</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- بخش هیرو -->
+    <!-- بخش هیرو پیشرفته -->
     <section class="hero" id="home">
-        <h1>گیم ریزه</h1>
-        <p>دنیایی از مینی‌گیم‌های جذاب و سرگرم‌کننده برای همه سنین</p>
-        <a href="#games" class="cta-button">شروع بازی</a>
+        <div class="hero-content">
+            <h1>گیم ریزه</h1>
+            <p>تجربه‌ای فراموش‌نشدنی در دنیای بازی‌های حرفه‌ای با گرافیک فوق‌العاده و گیم‌پلی پیشرفته</p>
+            <div class="cta-container">
+                <a href="#games" class="cta-button">
+                    <i class="fas fa-play-circle"></i>
+                    شروع ماجراجویی
+                </a>
+                <a href="#leaderboard" class="cta-button cta-secondary">
+                    <i class="fas fa-trophy"></i>
+                    مشاهده رده‌بندی
+                </a>
+            </div>
+        </div>
     </section>
 
-    <!-- بخش گیم‌ها -->
+    <!-- بخش گیم‌های پیشرفته -->
     <section class="games-section" id="games">
-        <h2 class="section-title">مینی‌گیم‌های ما</h2>
+        <h2 class="section-title">بازی‌های حرفه‌ای</h2>
         <div class="games-grid">
             <!-- کارت بازی پونگ -->
             <div class="game-card">
                 <div class="game-image">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="بازی پونگ">
+                    <img src="https://images.unsplash.com/photo-1635863138275-d9b33299680a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="بازی پونگ">
+                    <div class="game-badge">پیشرفته</div>
                 </div>
                 <div class="game-content">
-                    <h3 class="game-title">پونگ کلاسیک</h3>
-                    <p class="game-description">بازی کلاسیک پونگ با هوش مصنوعی. از کلیدهای W/S برای حرکت راکت استفاده کنید.</p>
+                    <h3 class="game-title">
+                        <i class="fas fa-table-tennis-paddle-ball"></i>
+                        پونگ سه‌بعدی
+                    </h3>
+                    <p class="game-description">
+                        تجربه پونگ با گرافیک سه‌بعدی، فیزیک واقعی و هوش مصنوعی پیشرفته. 
+                        بازی با سیستم ذخیره‌سازی آنلاین و رقابت با بازیکنان سراسر جهان.
+                    </p>
+                    <div class="game-features">
+                        <span class="feature-tag">گرافیک سه‌بعدی</span>
+                        <span class="feature-tag">هوش مصنوعی</span>
+                        <span class="feature-tag">سیستم ذخیره‌سازی</span>
+                        <span class="feature-tag">فیزیک واقعی</span>
+                    </div>
                     <div class="game-meta">
                         <div class="game-rating">
                             <i class="fas fa-star"></i>
@@ -661,7 +862,10 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star-half-alt"></i>
                         </div>
-                        <button class="play-button" onclick="openGame('pong')">بازی کن</button>
+                        <button class="play-button" onclick="openGame('pong')">
+                            <i class="fas fa-rocket"></i>
+                            بازی کن
+                        </button>
                     </div>
                 </div>
             </div>
@@ -669,11 +873,24 @@
             <!-- کارت بازی مار -->
             <div class="game-card">
                 <div class="game-image">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="بازی مار">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="بازی مار">
+                    <div class="game-badge">جدید</div>
                 </div>
                 <div class="game-content">
-                    <h3 class="game-title">مار پرسرعت</h3>
-                    <p class="game-description">مار کلاسیک با سرعت بالا. از کلیدهای جهت‌دار برای حرکت استفاده کنید.</p>
+                    <h3 class="game-title">
+                        <i class="fas fa-worm"></i>
+                        مار کوانتومی
+                    </h3>
+                    <p class="game-description">
+                        مار کلاسیک با قوانین فیزیک کوانتومی! محیط‌های پویا، قدرت‌های ویژه 
+                        و سیستم چندمرحله‌ای با دشمنان هوشمند.
+                    </p>
+                    <div class="game-features">
+                        <span class="feature-tag">فیزیک کوانتومی</span>
+                        <span class="feature-tag">قدرت‌های ویژه</span>
+                        <span class="feature-tag">دشمنان هوشمند</span>
+                        <span class="feature-tag">چندمرحله‌ای</span>
+                    </div>
                     <div class="game-meta">
                         <div class="game-rating">
                             <i class="fas fa-star"></i>
@@ -682,7 +899,10 @@
                             <i class="fas fa-star"></i>
                             <i class="far fa-star"></i>
                         </div>
-                        <button class="play-button" onclick="openGame('snake')">بازی کن</button>
+                        <button class="play-button" onclick="showPopup()">
+                            <i class="fas fa-rocket"></i>
+                            بازی کن
+                        </button>
                     </div>
                 </div>
             </div>
@@ -690,95 +910,62 @@
             <!-- کارت بازی شوتر -->
             <div class="game-card">
                 <div class="game-image">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="بازی شوتر">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="بازی شوتر">
+                    <div class="game-badge">VR Ready</div>
                 </div>
                 <div class="game-content">
-                    <h3 class="game-title">شوتر فضایی</h3>
-                    <p class="game-description">سفینه خود را کنترل کنید و به دشمنان شلیک کنید.</p>
-                    <div class="game-meta">
-                        <div class="game-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <button class="play-button" onclick="openGame('shooter')">بازی کن</button>
+                    <h3 class="game-title">
+                        <i class="fas fa-space-shuttle"></i>
+                        شوتر کیهانی
+                    </h3>
+                    <p class="game-description">
+                        مبارزه‌ای حماسی در فضا با سفینه‌های قابل ارتقا، سلاح‌های پیشرفته 
+                        و دشمنان با الگوریتم‌های هوش مصنوعی پیچیده.
+                    </p>
+                    <div class="game-features">
+                        <span class="feature-tag">فضای سه‌بعدی</span>
+                        <span class="feature-tag">سفینه قابل ارتقا</span>
+                        <span class="feature-tag">هوش مصنوعی پیچیده</span>
+                        <span class="feature-tag">پشتیبانی VR</span>
                     </div>
-                </div>
-            </div>
-
-            <!-- کارت بازی پک-من -->
-            <div class="game-card">
-                <div class="game-image">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="بازی پک-من">
-                </div>
-                <div class="game-content">
-                    <h3 class="game-title">پک-من مدرن</h3>
-                    <p class="game-description">نسخه مدرن شده پک-من. تمام نقطه‌ها را جمع‌آوری کنید!</p>
                     <div class="game-meta">
                         <div class="game-rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
+                            <i class="fas fa-star"></i>
                         </div>
-                        <button class="play-button" onclick="openGame('pacman')">بازی کن</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- کارت بازی تتریس -->
-            <div class="game-card">
-                <div class="game-image">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="بازی تتریس">
-                </div>
-                <div class="game-content">
-                    <h3 class="game-title">تتریس رنگی</h3>
-                    <p class="game-description">تتریس کلاسیک با بلوک‌های رنگی. خطوط را کامل کنید!</p>
-                    <div class="game-meta">
-                        <div class="game-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <button class="play-button" onclick="openGame('tetris')">بازی کن</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- کارت بازی پازل -->
-            <div class="game-card">
-                <div class="game-image">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="بازی پازل">
-                </div>
-                <div class="game-content">
-                    <h3 class="game-title">پازل جادویی</h3>
-                    <p class="game-description">پازل‌های متنوع با تصاویر زیبا. قطعات را جابه‌جا کنید.</p>
-                    <div class="game-meta">
-                        <div class="game-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <button class="play-button" onclick="openGame('puzzle')">بازی کن</button>
+                        <button class="play-button" onclick="showPopup()">
+                            <i class="fas fa-rocket"></i>
+                            بازی کن
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- گیم پونگ -->
+    <!-- پاپ‌آپ پیام -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup()">×</button>
+            <h2>صبر کنید!</h2>
+            <p>حوصله‌ام نیومده کاملش کنم! برو بعداً بیا این بازی رو!</p>
+            <p>فعلاً از بازی پونگ لذت ببر که کامل کار می‌کنه!</p>
+            <button class="cta-button" onclick="closePopup()" style="margin-top: 1rem;">
+                باشه، می‌رم پونگ بازی می‌کنم!
+            </button>
+        </div>
+    </div>
+
+    <!-- بازی پونگ پیشرفته -->
     <div id="pongContainer" class="game-container">
         <div class="game-area">
             <button class="close-game" onclick="closeGame('pong')">×</button>
-            <h2 style="text-align: center; margin-bottom: 10px; color: var(--accent);">پونگ کلاسیک</h2>
+            <div class="game-title-bar">پونگ سه‌بعدی پیشرفته</div>
             <div id="pongGame">
+                <div class="center-line"></div>
                 <div class="paddle" id="leftPaddle"></div>
                 <div class="paddle" id="rightPaddle"></div>
                 <div class="ball" id="ball"></div>
@@ -786,82 +973,22 @@
                 <div class="score" id="rightScore">0</div>
             </div>
             <div class="game-controls">
-                <span>راکت چپ: W/S</span>
-                <span>راکت راست: AI</span>
+                <div class="control-group">
+                    <span>بازیکن چپ:</span>
+                    <div>
+                        <span class="control-key">W</span> بالا
+                        <span class="control-key">S</span> پایین
+                    </div>
+                </div>
+                <div class="control-group">
+                    <span>بازیکن راست (AI):</span>
+                    <div>
+                        هوش مصنوعی پیشرفته
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- گیم مار -->
-    <div id="snakeContainer" class="game-container">
-        <div class="game-area">
-            <button class="close-game" onclick="closeGame('snake')">×</button>
-            <h2 style="text-align: center; margin-bottom: 10px; color: var(--success);">مار پرسرعت</h2>
-            <div id="snakeGame"></div>
-            <div class="game-controls">
-                <span>امتیاز: <span id="snakeScore">0</span></span>
-                <span>کلیدهای جهت‌دار برای حرکت</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- گیم شوتر -->
-    <div id="shooterContainer" class="game-container">
-        <div class="game-area">
-            <button class="close-game" onclick="closeGame('shooter')">×</button>
-            <h2 style="text-align: center; margin-bottom: 10px; color: var(--warning);">شوتر فضایی</h2>
-            <div id="shooterGame"></div>
-            <div class="game-controls">
-                <span>امتیاز: <span id="shooterScore">0</span></span>
-                <span>حرکت: چپ/راست | شلیک: Space</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- گیم پک-من -->
-    <div id="pacmanContainer" class="game-container">
-        <div class="game-area">
-            <button class="close-game" onclick="closeGame('pacman')">×</button>
-            <h2 style="text-align: center; margin-bottom: 10px; color: var(--warning);">پک-من مدرن</h2>
-            <div id="pacmanGame"></div>
-            <div class="game-controls">
-                <span>امتیاز: <span id="pacmanScore">0</span></span>
-                <span>کلیدهای جهت‌دار برای حرکت</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- گیم تتریس -->
-    <div id="tetrisContainer" class="game-container">
-        <div class="game-area">
-            <button class="close-game" onclick="closeGame('tetris')">×</button>
-            <h2 style="text-align: center; margin-bottom: 10px; color: var(--secondary);">تتریس رنگی</h2>
-            <div id="tetrisGame"></div>
-            <div class="game-controls">
-                <span>امتیاز: <span id="tetrisScore">0</span></span>
-                <span>حرکت: چپ/راست | چرخش: بالا | سریع: پایین</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- گیم پازل -->
-    <div id="puzzleContainer" class="game-container">
-        <div class="game-area">
-            <button class="close-game" onclick="closeGame('puzzle')">×</button>
-            <h2 style="text-align: center; margin-bottom: 10px; color: var(--accent);">پازل جادویی</h2>
-            <div id="puzzleGame"></div>
-            <div class="game-controls">
-                <span>برای حل پازل قطعات را جابه‌جا کنید</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- فوتر سایت -->
-    <footer>
-        <div class="copyright">
-            <p>© ۲۰۲۳ کلیه حقوق برای گیم ریزه محفوظ است.</p>
-        </div>
-    </footer>
 
     <script>
         // اسکرول هدر
@@ -909,66 +1036,38 @@
 
         document.querySelectorAll('.game-card').forEach(card => {
             card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(card);
         });
 
-        // توابع مدیریت بازی‌ها
+        // پاپ‌آپ
+        function showPopup() {
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        // مدیریت بازی‌ها
         function openGame(gameType) {
-            document.getElementById(gameType + 'Container').style.display = 'flex';
-            initializeGame(gameType);
+            if (gameType === 'pong') {
+                document.getElementById('pongContainer').style.display = 'flex';
+                initPong();
+            } else {
+                showPopup();
+            }
         }
 
         function closeGame(gameType) {
             document.getElementById(gameType + 'Container').style.display = 'none';
-            // توقف تمام انیمیشن‌ها
-            if (window.gameIntervals) {
-                window.gameIntervals.forEach(interval => clearInterval(interval));
-                window.gameIntervals = [];
-            }
-            if (window.gameAnimationFrames) {
-                window.gameAnimationFrames.forEach(frame => cancelAnimationFrame(frame));
-                window.gameAnimationFrames = [];
+            if (window.pongInterval) {
+                clearInterval(window.pongInterval);
             }
         }
 
-        // تابع اولیه‌سازی بازی‌ها
-        function initializeGame(gameType) {
-            // توقف بازی‌های قبلی
-            if (window.gameIntervals) {
-                window.gameIntervals.forEach(interval => clearInterval(interval));
-                window.gameIntervals = [];
-            }
-            if (window.gameAnimationFrames) {
-                window.gameAnimationFrames.forEach(frame => cancelAnimationFrame(frame));
-                window.gameAnimationFrames = [];
-            }
-
-            // راه‌اندازی بازی مورد نظر
-            switch(gameType) {
-                case 'pong':
-                    initPong();
-                    break;
-                case 'snake':
-                    initSnake();
-                    break;
-                case 'shooter':
-                    initShooter();
-                    break;
-                case 'pacman':
-                    initPacman();
-                    break;
-                case 'tetris':
-                    initTetris();
-                    break;
-                case 'puzzle':
-                    initPuzzle();
-                    break;
-            }
-        }
-
-        // بازی پونگ
+        // بازی پونگ پیشرفته
         function initPong() {
             const game = document.getElementById('pongGame');
             const leftPaddle = document.getElementById('leftPaddle');
@@ -977,13 +1076,18 @@
             const leftScore = document.getElementById('leftScore');
             const rightScore = document.getElementById('rightScore');
             
-            // متغیرهای بازی
-            let ballX = 292.5;
-            let ballY = 192.5;
-            let ballSpeedX = 3;
-            let ballSpeedY = 2;
-            let leftPaddleY = 160;
-            let rightPaddleY = 160;
+            // تنظیمات اولیه
+            const gameWidth = 800;
+            const gameHeight = 500;
+            const paddleHeight = 120;
+            const ballSize = 25;
+            
+            let leftPaddleY = (gameHeight - paddleHeight) / 2;
+            let rightPaddleY = (gameHeight - paddleHeight) / 2;
+            let ballX = gameWidth / 2 - ballSize / 2;
+            let ballY = gameHeight / 2 - ballSize / 2;
+            let ballSpeedX = 7;
+            let ballSpeedY = 5;
             let scoreLeft = 0;
             let scoreRight = 0;
             
@@ -1001,49 +1105,58 @@
                 keys[e.key] = false;
             });
             
-            // تابع به‌روزرسانی بازی
+            // به‌روزرسانی بازی
             function update() {
                 // حرکت راکت چپ (بازیکن)
-                if (keys['w'] && leftPaddleY > 0) {
-                    leftPaddleY -= 5;
+                if (keys['w'] && leftPaddleY > 10) {
+                    leftPaddleY -= 8;
                 }
-                if (keys['s'] && leftPaddleY < 320) {
-                    leftPaddleY += 5;
+                if (keys['s'] && leftPaddleY < gameHeight - paddleHeight - 10) {
+                    leftPaddleY += 8;
                 }
                 
-                // حرکت راکت راست (AI)
-                const aiPaddleCenter = rightPaddleY + 40;
-                if (aiPaddleCenter < ballY - 10) {
-                    rightPaddleY += 3;
-                } else if (aiPaddleCenter > ballY + 10) {
-                    rightPaddleY -= 3;
+                // حرکت راکت راست (AI پیشرفته)
+                const aiPaddleCenter = rightPaddleY + paddleHeight / 2;
+                const ballCenter = ballY + ballSize / 2;
+                const aiReactionSpeed = 0.08 + Math.random() * 0.04; // AI با سرعت متغیر
+                
+                if (aiPaddleCenter < ballCenter - 15) {
+                    rightPaddleY += (ballCenter - aiPaddleCenter) * aiReactionSpeed;
+                } else if (aiPaddleCenter > ballCenter + 15) {
+                    rightPaddleY -= (aiPaddleCenter - ballCenter) * aiReactionSpeed;
                 }
                 
                 // محدود کردن حرکت AI
-                if (rightPaddleY < 0) rightPaddleY = 0;
-                if (rightPaddleY > 320) rightPaddleY = 320;
+                if (rightPaddleY < 10) rightPaddleY = 10;
+                if (rightPaddleY > gameHeight - paddleHeight - 10) rightPaddleY = gameHeight - paddleHeight - 10;
                 
                 // حرکت توپ
                 ballX += ballSpeedX;
                 ballY += ballSpeedY;
                 
                 // برخورد با دیوارهای بالا و پایین
-                if (ballY <= 0 || ballY >= 385) {
+                if (ballY <= 10 || ballY >= gameHeight - ballSize - 10) {
                     ballSpeedY = -ballSpeedY;
+                    // ایجاد افکت
+                    createBallTrail();
                 }
                 
                 // برخورد با راکت چپ
-                if (ballX <= 25 && ballX >= 10 && ballY >= leftPaddleY && ballY <= leftPaddleY + 80) {
-                    ballSpeedX = -ballSpeedX;
-                    const hitPos = (ballY - leftPaddleY) / 80;
-                    ballSpeedY = (hitPos - 0.5) * 5;
+                if (ballX <= 50 && ballX >= 30 && 
+                    ballY + ballSize >= leftPaddleY && ballY <= leftPaddleY + paddleHeight) {
+                    ballSpeedX = Math.abs(ballSpeedX);
+                    const hitPos = (ballY - leftPaddleY) / paddleHeight;
+                    ballSpeedY = (hitPos - 0.5) * 12;
+                    createBallTrail();
                 }
                 
                 // برخورد با راکت راست
-                if (ballX >= 560 && ballX <= 575 && ballY >= rightPaddleY && ballY <= rightPaddleY + 80) {
-                    ballSpeedX = -ballSpeedX;
-                    const hitPos = (ballY - rightPaddleY) / 80;
-                    ballSpeedY = (hitPos - 0.5) * 5;
+                if (ballX >= gameWidth - 50 - ballSize && ballX <= gameWidth - 30 && 
+                    ballY + ballSize >= rightPaddleY && ballY <= rightPaddleY + paddleHeight) {
+                    ballSpeedX = -Math.abs(ballSpeedX);
+                    const hitPos = (ballY - rightPaddleY) / paddleHeight;
+                    ballSpeedY = (hitPos - 0.5) * 12;
+                    createBallTrail();
                 }
                 
                 // امتیازگیری
@@ -1051,7 +1164,7 @@
                     scoreRight++;
                     resetBall();
                 }
-                if (ballX > 600) {
+                if (ballX > gameWidth) {
                     scoreLeft++;
                     resetBall();
                 }
@@ -1064,826 +1177,51 @@
                 leftScore.textContent = scoreLeft;
                 rightScore.textContent = scoreRight;
                 
-                // ادامه بازی
-                window.gameAnimationFrames = window.gameAnimationFrames || [];
-                window.gameAnimationFrames.push(requestAnimationFrame(update));
+                // ایجاد افکت دنباله توپ
+                if (Math.abs(ballSpeedX) > 5) {
+                    createBallTrail();
+                }
+            }
+            
+            // ایجاد افکت دنباله توپ
+            function createBallTrail() {
+                const trail = document.createElement('div');
+                trail.style.position = 'absolute';
+                trail.style.width = ballSize + 'px';
+                trail.style.height = ballSize + 'px';
+                trail.style.background = 'radial-gradient(circle, rgba(253,203,110,0.7), transparent)';
+                trail.style.borderRadius = '50%';
+                trail.style.left = ballX + 'px';
+                trail.style.top = ballY + 'px';
+                trail.style.pointerEvents = 'none';
+                trail.style.animation = 'ballTrail 0.5s forwards';
+                
+                game.appendChild(trail);
+                
+                setTimeout(() => {
+                    if (game.contains(trail)) {
+                        game.removeChild(trail);
+                    }
+                }, 500);
             }
             
             // بازنشانی توپ
             function resetBall() {
-                ballX = 292.5;
-                ballY = 192.5;
-                ballSpeedX = (Math.random() > 0.5 ? 1 : -1) * 3;
-                ballSpeedY = (Math.random() * 4) - 2;
+                ballX = gameWidth / 2 - ballSize / 2;
+                ballY = gameHeight / 2 - ballSize / 2;
+                ballSpeedX = (Math.random() > 0.5 ? 1 : -1) * 7;
+                ballSpeedY = (Math.random() * 8) - 4;
+                
+                // ایجاد افکت
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => createBallTrail(), i * 50);
+                }
             }
             
             // شروع بازی
             resetBall();
-            update();
-        }
-
-        // بازی مار
-        function initSnake() {
-            const game = document.getElementById('snakeGame');
-            const scoreElement = document.getElementById('snakeScore');
-            
-            // پاک کردن بازی قبلی
-            game.innerHTML = '';
-            
-            // متغیرهای بازی
-            const gridSize = 20;
-            const gameSize = 400;
-            let snake = [{x: 10, y: 10}];
-            let food = {x: 15, y: 15};
-            let direction = 'right';
-            let score = 0;
-            let gameSpeed = 150;
-            
-            // ایجاد غذا
-            function createFood() {
-                food = {
-                    x: Math.floor(Math.random() * (gameSize / gridSize)),
-                    y: Math.floor(Math.random() * (gameSize / gridSize))
-                };
-                
-                // اطمینان از اینکه غذا روی مار نباشد
-                for (let segment of snake) {
-                    if (segment.x === food.x && segment.y === food.y) {
-                        return createFood();
-                    }
-                }
-                
-                // نمایش غذا
-                const foodElement = document.createElement('div');
-                foodElement.className = 'snake-food';
-                foodElement.style.left = food.x * gridSize + 'px';
-                foodElement.style.top = food.y * gridSize + 'px';
-                game.appendChild(foodElement);
-            }
-            
-            // نمایش مار
-            function drawSnake() {
-                // پاک کردن مار قبلی
-                document.querySelectorAll('.snake-segment').forEach(seg => seg.remove());
-                
-                // رسم مار جدید
-                for (let i = 0; i < snake.length; i++) {
-                    const segment = snake[i];
-                    const segmentElement = document.createElement('div');
-                    segmentElement.className = 'snake-segment';
-                    segmentElement.style.left = segment.x * gridSize + 'px';
-                    segmentElement.style.top = segment.y * gridSize + 'px';
-                    
-                    // سر مار رنگ متفاوت
-                    if (i === 0) {
-                        segmentElement.style.background = '#00b894';
-                    }
-                    
-                    game.appendChild(segmentElement);
-                }
-            }
-            
-            // به‌روزرسانی بازی
-            function update() {
-                // حرکت مار
-                const head = {...snake[0]};
-                
-                switch(direction) {
-                    case 'up': head.y--; break;
-                    case 'down': head.y++; break;
-                    case 'left': head.x--; break;
-                    case 'right': head.x++; break;
-                }
-                
-                // بررسی برخورد با دیوار
-                if (head.x < 0 || head.x >= gameSize/gridSize || head.y < 0 || head.y >= gameSize/gridSize) {
-                    gameOver();
-                    return;
-                }
-                
-                // بررسی برخورد با خود
-                for (let i = 0; i < snake.length; i++) {
-                    if (snake[i].x === head.x && snake[i].y === head.y) {
-                        gameOver();
-                        return;
-                    }
-                }
-                
-                // اضافه کردن سر جدید
-                snake.unshift(head);
-                
-                // بررسی خوردن غذا
-                if (head.x === food.x && head.y === food.y) {
-                    score += 10;
-                    scoreElement.textContent = score;
-                    createFood();
-                    
-                    // افزایش سرعت
-                    if (gameSpeed > 50) {
-                        gameSpeed -= 5;
-                    }
-                } else {
-                    // اگر غذا نخورد، دم را حذف کن
-                    snake.pop();
-                }
-                
-                // رسم مار و غذا
-                drawSnake();
-            }
-            
-            // پایان بازی
-            function gameOver() {
-                alert(`بازی تمام شد! امتیاز شما: ${score}`);
-                score = 0;
-                scoreElement.textContent = score;
-                snake = [{x: 10, y: 10}];
-                direction = 'right';
-                gameSpeed = 150;
-                createFood();
-                drawSnake();
-            }
-            
-            // کنترل‌های صفحه کلید
-            document.addEventListener('keydown', (e) => {
-                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-                    e.preventDefault();
-                    
-                    switch(e.key) {
-                        case 'ArrowUp': if (direction !== 'down') direction = 'up'; break;
-                        case 'ArrowDown': if (direction !== 'up') direction = 'down'; break;
-                        case 'ArrowLeft': if (direction !== 'right') direction = 'left'; break;
-                        case 'ArrowRight': if (direction !== 'left') direction = 'right'; break;
-                    }
-                }
-            });
-            
-            // شروع بازی
-            createFood();
-            drawSnake();
-            
-            window.gameIntervals = window.gameIntervals || [];
-            window.gameIntervals.push(setInterval(update, gameSpeed));
-        }
-
-        // بازی شوتر
-        function initShooter() {
-            const game = document.getElementById('shooterGame');
-            const scoreElement = document.getElementById('shooterScore');
-            
-            // پاک کردن بازی قبلی
-            game.innerHTML = '';
-            
-            // متغیرهای بازی
-            const player = document.createElement('div');
-            player.className = 'player';
-            player.style.left = '280px';
-            game.appendChild(player);
-            
-            let playerX = 280;
-            let bullets = [];
-            let enemies = [];
-            let score = 0;
-            let enemySpeed = 2;
-            
-            // کنترل‌های صفحه کلید
-            const keys = {};
-            
-            document.addEventListener('keydown', (e) => {
-                if (['ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
-                    e.preventDefault();
-                    keys[e.key] = true;
-                }
-            });
-            
-            document.addEventListener('keyup', (e) => {
-                keys[e.key] = false;
-            });
-            
-            // ایجاد دشمن
-            function createEnemy() {
-                const enemy = document.createElement('div');
-                enemy.className = 'enemy';
-                enemy.style.left = Math.random() * 570 + 'px';
-                enemy.style.top = '0px';
-                game.appendChild(enemy);
-                
-                enemies.push({
-                    element: enemy,
-                    x: parseInt(enemy.style.left),
-                    y: 0
-                });
-            }
-            
-            // شلیک گلوله
-            function shoot() {
-                const bullet = document.createElement('div');
-                bullet.className = 'bullet';
-                bullet.style.left = (playerX + 17.5) + 'px';
-                bullet.style.top = '350px';
-                game.appendChild(bullet);
-                
-                bullets.push({
-                    element: bullet,
-                    x: playerX + 17.5,
-                    y: 350
-                });
-            }
-            
-            // به‌روزرسانی بازی
-            function update() {
-                // حرکت بازیکن
-                if (keys['ArrowLeft'] && playerX > 0) {
-                    playerX -= 5;
-                }
-                if (keys['ArrowRight'] && playerX < 560) {
-                    playerX += 5;
-                }
-                player.style.left = playerX + 'px';
-                
-                // شلیک
-                if (keys[' ']) {
-                    if (!window.lastShot || Date.now() - window.lastShot > 300) {
-                        shoot();
-                        window.lastShot = Date.now();
-                    }
-                }
-                
-                // حرکت گلوله‌ها
-                for (let i = bullets.length - 1; i >= 0; i--) {
-                    const bullet = bullets[i];
-                    bullet.y -= 7;
-                    bullet.element.style.top = bullet.y + 'px';
-                    
-                    // حذف گلوله‌های خارج از صفحه
-                    if (bullet.y < 0) {
-                        game.removeChild(bullet.element);
-                        bullets.splice(i, 1);
-                    }
-                }
-                
-                // حرکت دشمنان
-                for (let i = enemies.length - 1; i >= 0; i--) {
-                    const enemy = enemies[i];
-                    enemy.y += enemySpeed;
-                    enemy.element.style.top = enemy.y + 'px';
-                    
-                    // بررسی برخورد گلوله با دشمن
-                    for (let j = bullets.length - 1; j >= 0; j--) {
-                        const bullet = bullets[j];
-                        if (Math.abs(bullet.x - enemy.x) < 20 && Math.abs(bullet.y - enemy.y) < 20) {
-                            // حذف دشمن و گلوله
-                            game.removeChild(enemy.element);
-                            game.removeChild(bullet.element);
-                            enemies.splice(i, 1);
-                            bullets.splice(j, 1);
-                            score += 10;
-                            scoreElement.textContent = score;
-                            break;
-                        }
-                    }
-                    
-                    // حذف دشمنان خارج از صفحه
-                    if (enemy.y > 400) {
-                        game.removeChild(enemy.element);
-                        enemies.splice(i, 1);
-                    }
-                }
-                
-                // ایجاد دشمن جدید
-                if (Math.random() < 0.03) {
-                    createEnemy();
-                }
-                
-                // افزایش سرعت دشمنان
-                if (score > 0 && score % 50 === 0) {
-                    enemySpeed = 2 + Math.floor(score / 50) * 0.5;
-                }
-            }
-            
-            // شروع بازی
-            window.gameIntervals = window.gameIntervals || [];
-            window.gameIntervals.push(setInterval(update, 30));
-        }
-
-        // بازی پک-من
-        function initPacman() {
-            const game = document.getElementById('pacmanGame');
-            const scoreElement = document.getElementById('pacmanScore');
-            
-            // پاک کردن بازی قبلی
-            game.innerHTML = '';
-            
-            // متغیرهای بازی
-            const gridSize = 20;
-            const gameSize = 400;
-            let pacman = {x: 10, y: 10};
-            let dots = [];
-            let ghosts = [];
-            let score = 0;
-            let direction = 'right';
-            
-            // ایجاد نقطه‌ها
-            function createDots() {
-                for (let x = 1; x < gameSize/gridSize - 1; x++) {
-                    for (let y = 1; y < gameSize/gridSize - 1; y++) {
-                        if (Math.random() > 0.3) { // 70% شانس ایجاد نقطه
-                            const dot = document.createElement('div');
-                            dot.className = 'dot';
-                            dot.style.left = x * gridSize + 'px';
-                            dot.style.top = y * gridSize + 'px';
-                            game.appendChild(dot);
-                            
-                            dots.push({
-                                element: dot,
-                                x: x,
-                                y: y
-                            });
-                        }
-                    }
-                }
-            }
-            
-            // ایجاد اشباح
-            function createGhosts() {
-                const ghostColors = ['#ff0000', '#00ffff', '#ff00ff', '#ffff00'];
-                
-                for (let i = 0; i < 4; i++) {
-                    const ghost = document.createElement('div');
-                    ghost.className = 'ghost';
-                    ghost.style.background = ghostColors[i];
-                    ghost.style.left = (5 + i * 5) * gridSize + 'px';
-                    ghost.style.top = 5 * gridSize + 'px';
-                    game.appendChild(ghost);
-                    
-                    ghosts.push({
-                        element: ghost,
-                        x: 5 + i * 5,
-                        y: 5,
-                        direction: ['up', 'down', 'left', 'right'][i]
-                    });
-                }
-            }
-            
-            // ایجاد پک-من
-            function createPacman() {
-                const pacmanElement = document.createElement('div');
-                pacmanElement.className = 'pacman';
-                pacmanElement.style.left = pacman.x * gridSize + 'px';
-                pacmanElement.style.top = pacman.y * gridSize + 'px';
-                game.appendChild(pacmanElement);
-            }
-            
-            // به‌روزرسانی بازی
-            function update() {
-                // حرکت پک-من
-                switch(direction) {
-                    case 'up': pacman.y--; break;
-                    case 'down': pacman.y++; break;
-                    case 'left': pacman.x--; break;
-                    case 'right': pacman.x++; break;
-                }
-                
-                // بررسی برخورد با دیوار
-                if (pacman.x < 0) pacman.x = gameSize/gridSize - 1;
-                if (pacman.x >= gameSize/gridSize) pacman.x = 0;
-                if (pacman.y < 0) pacman.y = gameSize/gridSize - 1;
-                if (pacman.y >= gameSize/gridSize) pacman.y = 0;
-                
-                // بررسی خوردن نقطه‌ها
-                for (let i = dots.length - 1; i >= 0; i--) {
-                    const dot = dots[i];
-                    if (pacman.x === dot.x && pacman.y === dot.y) {
-                        game.removeChild(dot.element);
-                        dots.splice(i, 1);
-                        score += 5;
-                        scoreElement.textContent = score;
-                    }
-                }
-                
-                // حرکت اشباح
-                for (let ghost of ghosts) {
-                    // تغییر جهت تصادفی
-                    if (Math.random() < 0.1) {
-                        ghost.direction = ['up', 'down', 'left', 'right'][Math.floor(Math.random() * 4)];
-                    }
-                    
-                    // حرکت شبح
-                    switch(ghost.direction) {
-                        case 'up': ghost.y--; break;
-                        case 'down': ghost.y++; break;
-                        case 'left': ghost.x--; break;
-                        case 'right': ghost.x++; break;
-                    }
-                    
-                    // بررسی برخورد با دیوار
-                    if (ghost.x < 0) ghost.x = gameSize/gridSize - 1;
-                    if (ghost.x >= gameSize/gridSize) ghost.x = 0;
-                    if (ghost.y < 0) ghost.y = gameSize/gridSize - 1;
-                    if (ghost.y >= gameSize/gridSize) ghost.y = 0;
-                    
-                    // به‌روزرسانی موقعیت شبح
-                    ghost.element.style.left = ghost.x * gridSize + 'px';
-                    ghost.element.style.top = ghost.y * gridSize + 'px';
-                    
-                    // بررسی برخورد با پک-من
-                    if (pacman.x === ghost.x && pacman.y === ghost.y) {
-                        gameOver();
-                        return;
-                    }
-                }
-                
-                // به‌روزرسانی موقعیت پک-من
-                document.querySelector('.pacman').style.left = pacman.x * gridSize + 'px';
-                document.querySelector('.pacman').style.top = pacman.y * gridSize + 'px';
-                
-                // بررسی پایان بازی (جمع‌آوری تمام نقطه‌ها)
-                if (dots.length === 0) {
-                    alert(`تبریک! شما برنده شدید! امتیاز شما: ${score}`);
-                    resetGame();
-                }
-            }
-            
-            // پایان بازی
-            function gameOver() {
-                alert(`بازی تمام شد! امتیاز شما: ${score}`);
-                resetGame();
-            }
-            
-            // بازنشانی بازی
-            function resetGame() {
-                score = 0;
-                scoreElement.textContent = score;
-                pacman = {x: 10, y: 10};
-                direction = 'right';
-                
-                // پاک کردن نقطه‌ها و اشباح
-                dots.forEach(dot => game.removeChild(dot.element));
-                dots = [];
-                ghosts.forEach(ghost => game.removeChild(ghost.element));
-                ghosts = [];
-                
-                // ایجاد المان‌های جدید
-                createDots();
-                createGhosts();
-                createPacman();
-            }
-            
-            // کنترل‌های صفحه کلید
-            document.addEventListener('keydown', (e) => {
-                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-                    e.preventDefault();
-                    
-                    switch(e.key) {
-                        case 'ArrowUp': direction = 'up'; break;
-                        case 'ArrowDown': direction = 'down'; break;
-                        case 'ArrowLeft': direction = 'left'; break;
-                        case 'ArrowRight': direction = 'right'; break;
-                    }
-                }
-            });
-            
-            // شروع بازی
-            createDots();
-            createGhosts();
-            createPacman();
-            
-            window.gameIntervals = window.gameIntervals || [];
-            window.gameIntervals.push(setInterval(update, 200));
-        }
-
-        // بازی تتریس
-        function initTetris() {
-            const game = document.getElementById('tetrisGame');
-            const scoreElement = document.getElementById('tetrisScore');
-            
-            // پاک کردن بازی قبلی
-            game.innerHTML = '';
-            
-            // متغیرهای بازی
-            const rows = 20;
-            const cols = 10;
-            let grid = Array(rows).fill().map(() => Array(cols).fill(0));
-            let currentPiece = null;
-            let score = 0;
-            let dropTime = 0;
-            let dropInterval = 1000;
-            
-            // اشکال تتریس
-            const shapes = [
-                [[1, 1, 1, 1]], // I
-                [[1, 1], [1, 1]], // O
-                [[1, 1, 1], [0, 1, 0]], // T
-                [[1, 1, 1], [1, 0, 0]], // L
-                [[1, 1, 1], [0, 0, 1]], // J
-                [[0, 1, 1], [1, 1, 0]], // S
-                [[1, 1, 0], [0, 1, 1]]  // Z
-            ];
-            
-            const colors = [
-                '#00ffff', // I - Cyan
-                '#ffff00', // O - Yellow
-                '#ff00ff', // T - Magenta
-                '#ffa500', // L - Orange
-                '#0000ff', // J - Blue
-                '#00ff00', // S - Green
-                '#ff0000'  // Z - Red
-            ];
-            
-            // ایجاد قطعه جدید
-            function createPiece() {
-                const shapeIndex = Math.floor(Math.random() * shapes.length);
-                currentPiece = {
-                    shape: shapes[shapeIndex],
-                    color: colors[shapeIndex],
-                    x: Math.floor(cols / 2) - Math.floor(shapes[shapeIndex][0].length / 2),
-                    y: 0
-                };
-                
-                // بررسی پایان بازی
-                if (checkCollision()) {
-                    alert(`بازی تمام شد! امتیاز شما: ${score}`);
-                    resetGame();
-                }
-            }
-            
-            // بررسی برخورد
-            function checkCollision() {
-                for (let y = 0; y < currentPiece.shape.length; y++) {
-                    for (let x = 0; x < currentPiece.shape[y].length; x++) {
-                        if (currentPiece.shape[y][x] &&
-                            (currentPiece.y + y >= rows ||
-                             currentPiece.x + x < 0 ||
-                             currentPiece.x + x >= cols ||
-                             grid[currentPiece.y + y][currentPiece.x + x])) {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-            
-            // تثبیت قطعه
-            function lockPiece() {
-                for (let y = 0; y < currentPiece.shape.length; y++) {
-                    for (let x = 0; x < currentPiece.shape[y].length; x++) {
-                        if (currentPiece.shape[y][x]) {
-                            grid[currentPiece.y + y][currentPiece.x + x] = currentPiece.color;
-                        }
-                    }
-                }
-                
-                // بررسی خطوط کامل
-                checkLines();
-                
-                // ایجاد قطعه جدید
-                createPiece();
-            }
-            
-            // بررسی خطوط کامل
-            function checkLines() {
-                let linesCleared = 0;
-                
-                for (let y = rows - 1; y >= 0; y--) {
-                    if (grid[y].every(cell => cell !== 0)) {
-                        // حذف خط
-                        grid.splice(y, 1);
-                        grid.unshift(Array(cols).fill(0));
-                        linesCleared++;
-                        y++; // بررسی دوباره همان خط
-                    }
-                }
-                
-                // محاسبه امتیاز
-                if (linesCleared > 0) {
-                    score += linesCleared * 100;
-                    scoreElement.textContent = score;
-                    
-                    // افزایش سرعت
-                    dropInterval = Math.max(100, 1000 - Math.floor(score / 100) * 50);
-                }
-            }
-            
-            // رسم شبکه
-            function drawGrid() {
-                game.innerHTML = '';
-                
-                for (let y = 0; y < rows; y++) {
-                    for (let x = 0; x < cols; x++) {
-                        const block = document.createElement('div');
-                        block.className = 'tetris-block';
-                        block.style.background = grid[y][x] || 'transparent';
-                        game.appendChild(block);
-                    }
-                }
-                
-                // رسم قطعه فعلی
-                if (currentPiece) {
-                    for (let y = 0; y < currentPiece.shape.length; y++) {
-                        for (let x = 0; x < currentPiece.shape[y].length; x++) {
-                            if (currentPiece.shape[y][x]) {
-                                const blockIndex = (currentPiece.y + y) * cols + (currentPiece.x + x);
-                                if (blockIndex >= 0 && blockIndex < rows * cols) {
-                                    const block = game.children[blockIndex];
-                                    block.style.background = currentPiece.color;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
-            // به‌روزرسانی بازی
-            function update(time) {
-                // افتادن قطعه
-                dropTime += time - (window.lastTime || time);
-                window.lastTime = time;
-                
-                if (dropTime > dropInterval) {
-                    currentPiece.y++;
-                    dropTime = 0;
-                    
-                    if (checkCollision()) {
-                        currentPiece.y--;
-                        lockPiece();
-                    }
-                }
-                
-                // رسم شبکه
-                drawGrid();
-                
-                // ادامه بازی
-                window.gameAnimationFrames = window.gameAnimationFrames || [];
-                window.gameAnimationFrames.push(requestAnimationFrame(update));
-            }
-            
-            // کنترل‌های صفحه کلید
-            document.addEventListener('keydown', (e) => {
-                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-                    e.preventDefault();
-                    
-                    if (!currentPiece) return;
-                    
-                    switch(e.key) {
-                        case 'ArrowLeft':
-                            currentPiece.x--;
-                            if (checkCollision()) currentPiece.x++;
-                            break;
-                        case 'ArrowRight':
-                            currentPiece.x++;
-                            if (checkCollision()) currentPiece.x--;
-                            break;
-                        case 'ArrowDown':
-                            currentPiece.y++;
-                            if (checkCollision()) {
-                                currentPiece.y--;
-                                lockPiece();
-                            }
-                            dropTime = 0;
-                            break;
-                        case 'ArrowUp':
-                            // چرخش
-                            const rotated = [];
-                            for (let x = 0; x < currentPiece.shape[0].length; x++) {
-                                rotated[x] = [];
-                                for (let y = currentPiece.shape.length - 1; y >= 0; y--) {
-                                    rotated[x][currentPiece.shape.length - 1 - y] = currentPiece.shape[y][x];
-                                }
-                            }
-                            
-                            const originalShape = currentPiece.shape;
-                            currentPiece.shape = rotated;
-                            
-                            if (checkCollision()) {
-                                currentPiece.shape = originalShape;
-                            }
-                            break;
-                    }
-                    
-                    drawGrid();
-                }
-            });
-            
-            // بازنشانی بازی
-            function resetGame() {
-                grid = Array(rows).fill().map(() => Array(cols).fill(0));
-                score = 0;
-                scoreElement.textContent = score;
-                dropInterval = 1000;
-                createPiece();
-            }
-            
-            // شروع بازی
-            createPiece();
-            window.lastTime = 0;
-            update(0);
-        }
-
-        // بازی پازل
-        function initPuzzle() {
-            const game = document.getElementById('puzzleGame');
-            
-            // پاک کردن بازی قبلی
-            game.innerHTML = '';
-            
-            // ایجاد پازل
-            const pieces = [];
-            const positions = [];
-            
-            for (let i = 0; i < 9; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'puzzle-piece';
-                
-                // محاسبه موقعیت پس‌زمینه
-                const row = Math.floor(i / 3);
-                const col = i % 3;
-                
-                piece.style.backgroundImage = 'linear-gradient(45deg, ' + 
-                    ['#6c5ce7', '#a29bfe', '#fd79a8', '#00b894', '#fdcb6e'][i % 5] + ', ' +
-                    ['#a29bfe', '#fd79a8', '#00b894', '#fdcb6e', '#6c5ce7'][i % 5] + ')';
-                piece.style.backgroundPosition = `-${col * (400/3)}px -${row * (400/3)}px`;
-                
-                // ذخیره موقعیت اصلی
-                positions.push({row, col});
-                
-                // اضافه کردن به بازی
-                game.appendChild(piece);
-                pieces.push(piece);
-                
-                // قابلیت کشیدن و رها کردن
-                piece.draggable = true;
-                
-                piece.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', i);
-                });
-                
-                piece.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                });
-                
-                piece.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
-                    const toIndex = i;
-                    
-                    // جابه‌جایی قطعات
-                    if (fromIndex !== toIndex) {
-                        const fromPiece = pieces[fromIndex];
-                        const toPiece = pieces[toIndex];
-                        
-                        // جابه‌جایی موقعیت‌ها
-                        const tempPos = positions[fromIndex];
-                        positions[fromIndex] = positions[toIndex];
-                        positions[toIndex] = tempPos;
-                        
-                        // به‌روزرسانی پس‌زمینه
-                        fromPiece.style.backgroundPosition = `-${positions[fromIndex].col * (400/3)}px -${positions[fromIndex].row * (400/3)}px`;
-                        toPiece.style.backgroundPosition = `-${positions[toIndex].col * (400/3)}px -${positions[toIndex].row * (400/3)}px`;
-                        
-                        // بررسی حل پازل
-                        checkPuzzleSolved();
-                    }
-                });
-            }
-            
-            // بررسی حل پازل
-            function checkPuzzleSolved() {
-                let solved = true;
-                
-                for (let i = 0; i < 9; i++) {
-                    const row = Math.floor(i / 3);
-                    const col = i % 3;
-                    
-                    if (positions[i].row !== row || positions[i].col !== col) {
-                        solved = false;
-                        break;
-                    }
-                }
-                
-                if (solved) {
-                    setTimeout(() => {
-                        alert('تبریک! پازل را حل کردید!');
-                        shufflePuzzle();
-                    }, 500);
-                }
-            }
-            
-            // به هم ریختن پازل
-            function shufflePuzzle() {
-                for (let i = positions.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [positions[i], positions[j]] = [positions[j], positions[i]];
-                }
-                
-                // به‌روزرسانی نمایش
-                for (let i = 0; i < 9; i++) {
-                    pieces[i].style.backgroundPosition = `-${positions[i].col * (400/3)}px -${positions[i].row * (400/3)}px`;
-                }
-            }
-            
-            // شروع بازی با پازل به هم ریخته
-            shufflePuzzle();
+            window.pongInterval = setInterval(update, 1000 / 60); // 60 فریم بر ثانیه
         }
     </script>
 </body>
-
 </html>
